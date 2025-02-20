@@ -73,7 +73,7 @@ export default function Home() {
             <div className="w-16 h-16 bg-bright rounded-full flex items-center justify-center mb-4">
               <Assignment style={{ fontSize: 32, color: '#fff' }} />
             </div>
-            <h3 className="text-xl font-semibold">Step 1: Sign Up</h3>
+            <h3 className="text-xl text-gray-800 font-semibold">Step 1: Sign Up</h3>
             <p className="text-gray-600 mt-2">Create an account and connect with your speech therapist.</p>
           </div>
 
@@ -82,7 +82,7 @@ export default function Home() {
             <div className="w-16 h-16 bg-bright rounded-full flex items-center justify-center mb-4">
               <Chat style={{ fontSize: 32, color: '#fff' }} />
             </div>
-            <h3 className="text-xl font-semibold">Step 2: Communicate & Track Progress</h3>
+            <h3 className="text-xl text-gray-800 font-semibold">Step 2: Communicate & Track Progress</h3>
             <p className="text-gray-600 mt-2">Message your therapist, set goals, and monitor your progress.</p>
           </div>
 
@@ -91,7 +91,7 @@ export default function Home() {
             <div className="w-16 h-16 bg-bright rounded-full flex items-center justify-center mb-4">
               <Flag style={{ fontSize: 32, color: '#fff' }} />
             </div>
-            <h3 className="text-xl font-semibold">Step 3: Achieve Your Goals</h3>
+            <h3 className="text-xl text-gray-800 font-semibold">Step 3: Achieve Your Goals</h3>
             <p className="text-gray-600 mt-2">Stay motivated and on track with continuous support from your therapist.</p>
           </div>
         </div>
