@@ -1,0 +1,46 @@
+/* Import Tailwind base, components, and utilities */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Force light mode for the dashboard */
+:root {
+  /* Define the foreground (text color) and background colors for light mode */
+  --foreground-rgb: 0, 0, 0; /* Black text */
+  --background-start-rgb: 214, 219, 220; /* Light greyish color for background start */
+  --background-end-rgb: 255, 255, 255; /* White background for background end */
+}
+
+/* Scroll margin override for the dashboard (in case there’s a fixed navbar or sidebar) */
+[id] {
+  scroll-margin-top: 6rem;
+}
+
+/* General body styling specific to the dashboard */
+body {
+  color: rgb(var(--foreground-rgb)); /* Use the black text color */
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb)); /* Gradient background for the dashboard */
+}
+
+/* Utility overrides for dashboard-specific styles */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Additional dashboard-specific utility classes */
+  .dashboard-sidebar {
+    background-color: #f4f4f9; /* Light background for sidebar */
+    color: rgb(0, 0, 0); /* Dark text for sidebar */
+  }
+
+  .dashboard-content {
+    background-color: rgb(var(--background-end-rgb)); /* White background for main content */
+    color: rgb(var(--foreground-rgb)); /* Black text */
+  }
+}
