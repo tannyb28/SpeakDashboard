@@ -90,7 +90,7 @@ export default function ExerciseDetailModal({
           <h2 className="text-xl font-bold">{exercise.name}</h2>
           {/* Delete Button */}
           <button
-            onClick={() => handleDelete}
+            onClick={handleDelete}
             className="text-gray-500 hover:text-red-500 transition-colors"
             title="Delete Exercise"
           >
