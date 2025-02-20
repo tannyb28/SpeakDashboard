@@ -45,7 +45,7 @@ type DecodedToken = {
   Email: string;
   FirstName: string;
   LastName: string;
-  UserID: string;      // therapist ID
+  userID: string;      // therapist ID
   exp: number;         // expiration (Unix)
 };
 
@@ -67,7 +67,7 @@ export default function ClientPatientDetailPage({
     if (token) {
       try {
         const decoded: DecodedToken = jwtDecode(token);
-        setTherapistId(decoded.UserID);
+        setTherapistId(decoded.userID);
       } catch (err) {
         console.error("Error decoding JWT:", err);
       }
