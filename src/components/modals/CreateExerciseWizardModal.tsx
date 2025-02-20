@@ -258,7 +258,7 @@ export default function CreateExerciseWizardModal({
                 {pdfFile ? pdfFile.name : "No PDF uploaded"}
               </li>
             </ul>
-            <p>Everything look good? Click "Create" below.</p>
+            <p>Everything look good? Click &quot;Create&quot; below.</p>
           </div>
         )}
 

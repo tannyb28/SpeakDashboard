@@ -28,7 +28,7 @@ export default function PrivacyPolicy() {
 
         <section id="introduction" className="mb-12">
           <p className="text-gray-400">
-            Peak Speak Therapy ("we," "our," or "us") is owned and operated by <Link href="https://tnluplift.com" target='__blank' className='font-bold underline hover:text-white'>TNL Uplift LLC</Link>. We value your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, and protect your personal data when you use our app, Peak Speak Therapy, which connects speech therapists with their patients to assign exercises and track progress.
+            Peak Speak Therapy (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) is owned and operated by <Link href="https://tnluplift.com" target='__blank' className='font-bold underline hover:text-white'>TNL Uplift LLC</Link>. We value your privacy and are committed to protecting your personal information. This Privacy Policy explains how we collect, use, and protect your personal data when you use our app, Peak Speak Therapy, which connects speech therapists with their patients to assign exercises and track progress.
           </p>
         </section>
 
@@ -100,7 +100,7 @@ export default function PrivacyPolicy() {
         <section id="changes" className="mb-12">
           <h2 className="text-2xl font-semibold mb-4">Changes to This Privacy Policy</h2>
           <p className="text-gray-400">
-            We may update this Privacy Policy from time to time. Any changes will be posted within the app, and the "Effective Date" at the top of this page will be updated accordingly. Continued use of the app after any changes indicates your acceptance of the updated policy.
+            We may update this Privacy Policy from time to time. Any changes will be posted within the app, and the &quot;Effective Date&quot; at the top of this page will be updated accordingly. Continued use of the app after any changes indicates your acceptance of the updated policy.
           </p>
         </section>
 

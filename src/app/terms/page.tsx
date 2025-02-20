@@ -32,14 +32,14 @@ export default function TermsOfService() {
 
         <section id="introduction" className="mb-8">
             <p className="text-gray-400">
-                Welcome to <span className='font-bold'>Peak Speak Therapy</span>. These Terms of Service ("Terms") govern your access to and use of our application ("App") and services, which connect speech therapists and patients, provide exercises, and track patient progress. By using our App, you agree to these Terms. Please read them carefully.
+                Welcome to <span className='font-bold'>Peak Speak Therapy</span>. These Terms of Service (&quot;Terms&quot;) govern your access to and use of our application (&quot;App&quot;) and services, which connect speech therapists and patients, provide exercises, and track patient progress. By using our App, you agree to these Terms. Please read them carefully.
             </p>
         </section>
 
         <section id="acceptance" className="mb-12">
             <h2 className="text-2xl font-semibold mb-4">Acceptance of Terms</h2>
             <p className="text-gray-400">
-                By accessing or using Peak Speak Therapy's app, you agree to be bound by these Terms of Service ("Terms"). If you do not agree to these Terms, you may not use the app. Continued use of the app signifies acceptance of the current Terms, which may be updated from time to time.
+                By accessing or using Peak Speak Therapy&apos;s app, you agree to be bound by these Terms of Service (&quot;Terms&quot;). If you do not agree to these Terms, you may not use the app. Continued use of the app signifies acceptance of the current Terms, which may be updated from time to time.
             </p>
         </section>
 
@@ -60,7 +60,7 @@ export default function TermsOfService() {
         <section id="data-collection" className="mb-12">
             <h2 className="text-2xl font-semibold mb-4">Data Collection and Use</h2>
             <p className="text-gray-400">
-                We collect the following personal information to provide the app's services:
+                We collect the following personal information to provide the app&apos;s services:
             </p>
             <ul className="list-disc list-inside text-gray-400 ml-4 mt-2">
                 <li>Name</li>
@@ -104,7 +104,7 @@ export default function TermsOfService() {
         <section id="disputes" className="mb-12">
             <h2 className="text-2xl font-semibold mb-4">Dispute Resolution</h2>
             <p className="text-gray-400">
-                In the event of a dispute arising from your use of the app, we encourage you to contact us to seek a resolution. If we cannot resolve the dispute through informal negotiation, both parties agree to submit to binding arbitration in accordance with the American Arbitration Association's rules. 
+                In the event of a dispute arising from your use of the app, we encourage you to contact us to seek a resolution. If we cannot resolve the dispute through informal negotiation, both parties agree to submit to binding arbitration in accordance with the American Arbitration Association&apos;s rules. 
                 <br /> <br />
                 All arbitration will take place in the United States and will be governed by U.S. law.
             </p>
