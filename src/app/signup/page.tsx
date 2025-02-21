@@ -16,7 +16,7 @@ export default function SignupPage() {
     last_name: '',
     password: '',
     email: '',
-    role: 'patient', // Default role
+    role: 'therapist', // Default role
   });
 
   const [loading, setLoading] = useState(false);
@@ -42,10 +42,10 @@ export default function SignupPage() {
 
       if (response.ok) {
         // Optionally, automatically log the user in
-        router.push('/dashboard');
+        router.push('/login');
       } else {
         const errorData = await response.json();
-        setError(errorData.message || 'Signup failed');
+        setError(errorData.error || 'Signup failed');
       }
     } catch (err) {
       console.error('Error during signup:', err);

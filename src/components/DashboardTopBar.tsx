@@ -32,9 +32,11 @@ const DashboardTopBar = () => {
 
     // Logout function: remove token and redirect to login page
     const logout = () => {
-        Cookies.remove("peakspeak-token");
-        router.push("/login");
-    };
+        Cookies.remove("peakspeak-token", { path: '/' });
+        setTimeout(() => {
+            window.location.href = "/login";
+        }, 100); // delay in milliseconds
+    };    
 
     return (
         <nav className="fixed w-full h-16 bg-light text-dark flex items-center justify-between z-50 border-b border-secondary px-8">

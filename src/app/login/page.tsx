@@ -36,9 +36,11 @@ export default function LoginPage() {
 
         // Check if the user has the 'therapist' role
         if (data.user && data.user.role === "therapist") {
-          // Store token or any session identifier in a cookie
-          Cookies.set("peakspeak-token", data.token);
-          router.push("/dashboard");
+          Cookies.set("peakspeak-token", data.token, { path: '/' });
+          setTimeout(() => {
+            window.location.href = "/dashboard";
+          }, 100); // delay in milliseconds
+
         } else {
           setError("Only therapists have access to the dashboard.");
         }
@@ -113,7 +115,7 @@ export default function LoginPage() {
           </div>
         </form>
         <p className="mt-6 text-center text-sm text-white">
-          Don&quot;t have an account?{" "}
+          Don&apos;t have an account?{" "}
           <Link
             href="/signup"
             className="font-medium text-bright hover:text-white"
