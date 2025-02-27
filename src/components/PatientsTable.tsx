@@ -3,6 +3,7 @@ import React from 'react';
 import PersonIcon from "@mui/icons-material/Person";
 import Link from 'next/link';
 import { getPatient } from '@/services/PatientService';
+import Image from 'next/image';
 
 
 interface Patient {
@@ -43,7 +44,7 @@ export default function PatientsTable({ patients }: PatientsTableProps) {
           <tr key={patient.user_id} className="hover:bg-gray-50">
             <td className="flex flex-row items-center py-3 px-4">
               {patient.profile_image ? (
-                <img
+                <Image
                 src={patient.profile_image}
                 alt="Profile"
                 className="w-8 h-8 mr-3 rounded-full object-cover"

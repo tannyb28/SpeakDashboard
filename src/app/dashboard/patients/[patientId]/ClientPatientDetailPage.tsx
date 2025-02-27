@@ -9,6 +9,7 @@ import AssignExercisesModal from "@/components/modals/AssignExercisesModal";
 import VideoModal from "@/components/modals/VideoModal";
 import { decryptVideoWithAESGCM } from "@/util/VideoUtil";
 import Link from "next/link";
+import Image from "next/image";
 
 // type definitions for clarity
 type Patient = {
@@ -135,7 +136,7 @@ export default function ClientPatientDetailPage({
       <div className="flex flex-col justify-center max-w-xl mx-auto bg-white rounded shadow p-6">
         {/* Profile Picture */}
         <div className="flex justify-center mb-4">
-          <img
+          <Image
             src={patient.profile_image || "/default-profile.png"}
             alt={`${patient.first_name} ${patient.last_name}`}
             className="w-32 h-32 rounded-full object-cover"

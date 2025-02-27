@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { Person } from "@mui/icons-material";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 const DashboardTopBar = () => {
     const [profileImage, setProfileImage] = useState<string | null>(null);
@@ -42,7 +43,7 @@ const DashboardTopBar = () => {
         <nav className="fixed w-full h-16 bg-light text-dark flex items-center justify-between z-50 border-b border-secondary px-8">
             {/* Logo and Title */}
             <Link href="/dashboard" className="flex items-center no-underline px-2 py-1 rounded-lg">
-                <img src="/light-logo.png" alt="Logo" width={40} height={40} />
+                <Image src="/light-logo.png" alt="Logo" width={40} height={40} />
                 <span className="ml-2 text-2xl font-bold font-mono">PeakSpeak</span>
             </Link>
     
@@ -50,7 +51,7 @@ const DashboardTopBar = () => {
             <div className="relative" ref={dropdownRef}>
                 <div onClick={toggleDropdown} className="cursor-pointer">
                     {profileImage ? (
-                        <img src={profileImage} alt="Profile" className="w-10 h-10 rounded-full" />
+                        <Image src={profileImage} alt="Profile" className="w-10 h-10 rounded-full" />
                     ) : (
                         <div className="bg-gradient-to-r from-secondary to-medium text-white rounded-lg px-1 py-1 hover:bg-gradient-to-r hover:from-medium hover:to-bright transition duration-300">
                             <span>

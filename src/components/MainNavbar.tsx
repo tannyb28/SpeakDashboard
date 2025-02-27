@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 const MainNavbar = () => {
@@ -5,7 +6,7 @@ const MainNavbar = () => {
     <nav className="fixed w-full h-16 bg-dark text-white flex items-center justify-between z-50 border-b border-secondary px-8">
       {/* Logo and Title */}
       <Link href="/" className="flex items-center text-white no-underline px-2 py-1 rounded-lg">
-        <img src="/peakspeak-logo.png" alt="Logo" width={40} height={40} />
+        <Image src="/peakspeak-logo.png" alt="Logo" width={40} height={40} />
         <span className="ml-2 text-2xl font-bold font-mono">PeakSpeak</span>
       </Link>
 
