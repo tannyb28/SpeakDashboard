@@ -3,6 +3,8 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Cookies from "js-cookie";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -10,6 +12,7 @@ export default function LoginPage() {
   const router = useRouter();
 
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -91,16 +94,24 @@ export default function LoginPage() {
               >
                 Password
               </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                required
-                value={formData.password}
-                onChange={handleChange}
-                className="mt-1 block w-full px-3 py-2 bg-secondary border border-medium rounded-md shadow-sm placeholder-medium text-white focus:outline-none focus:ring-bright focus:border-bright sm:text-sm"
-                placeholder="••••••••"
-              />
+              <div className="relative">
+                <input
+                  id="password"
+                  name="password"
+                  type={passwordVisible ? "text" : "password"}
+                  required
+                  value={formData.password}
+                  onChange={handleChange}
+                  className="mt-1 block w-full px-3 py-2 bg-secondary border border-medium rounded-md shadow-sm placeholder-medium text-white focus:outline-none focus:ring-bright focus:border-bright sm:text-sm"
+                  placeholder="••••••••"
+                />
+                <div 
+                  className="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer"
+                  onClick={() => setPasswordVisible(!passwordVisible)}
+                >
+                  <FontAwesomeIcon icon={passwordVisible ? faEyeSlash : faEye} />
+                </div>
+              </div>
             </div>
           </div>
 
@@ -121,6 +132,13 @@ export default function LoginPage() {
             className="font-medium text-bright hover:text-white"
           >
             Sign up
+          </Link>
+          <br />
+          <Link
+            href="/forgot"
+            className="font-medium text-bright hover:text-white"
+          >
+            Forgot password
           </Link>
         </p>
       </div>
