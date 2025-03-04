@@ -48,6 +48,8 @@ export default function PatientsTable({ patients }: PatientsTableProps) {
                 src={patient.profile_image}
                 alt="Profile"
                 className="w-8 h-8 mr-3 rounded-full object-cover"
+                width={32}
+                height={32}
                 />
               ) : (
                 <PersonIcon className="w-8 h-8 mr-3 text-gray-400" />

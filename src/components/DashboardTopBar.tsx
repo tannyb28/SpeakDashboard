@@ -51,7 +51,7 @@ const DashboardTopBar = () => {
             <div className="relative" ref={dropdownRef}>
                 <div onClick={toggleDropdown} className="cursor-pointer">
                     {profileImage ? (
-                        <Image src={profileImage} alt="Profile" className="w-10 h-10 rounded-full" />
+                        <Image src={profileImage} width={10} height={10} alt="Profile" className="w-10 h-10 rounded-full" />
                     ) : (
                         <div className="bg-gradient-to-r from-secondary to-medium text-white rounded-lg px-1 py-1 hover:bg-gradient-to-r hover:from-medium hover:to-bright transition duration-300">
                             <span>

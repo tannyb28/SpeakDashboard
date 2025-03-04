@@ -139,6 +139,8 @@ export default function ClientPatientDetailPage({
           <Image
             src={patient.profile_image || "/default-profile.png"}
             alt={`${patient.first_name} ${patient.last_name}`}
+            width={128}
+            height={128}
             className="w-32 h-32 rounded-full object-cover"
           />
         </div>
