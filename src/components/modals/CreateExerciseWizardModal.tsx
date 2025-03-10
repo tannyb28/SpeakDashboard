@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { EXERCISE_TAGS, ExerciseTag, TagView } from "@/components/ExerciseTags";
-import { createExercise, uploadPDF } from "@/services/ExerciseService";
 import Cookies from "js-cookie";
 
 type CreateExerciseWizardModalProps = {
@@ -26,6 +25,10 @@ export default function CreateExerciseWizardModal({
   // PDF fields
   const [pdfFile, setPdfFile] = useState<File | null>(null);
   const [pdfUrl, setPdfUrl] = useState<string | null>(null);
+
+  // New Video fields for video instructions
+  const [videoFile, setVideoFile] = useState<File | null>(null);
+  const [videoUrl, setVideoUrl] = useState<string | null>(null);
 
   if (!isOpen) return null;
 
@@ -61,39 +64,46 @@ export default function CreateExerciseWizardModal({
     setIsGlobal(true);
     setPdfFile(null);
     setPdfUrl(null);
+    setVideoFile(null);
+    setVideoUrl(null);
   }
 
   // Submit final data
   async function handleSubmit() {
     try {
-      // Create a FormData object to hold the fields and file
+      // Create a FormData object to hold the fields and files
       const formData = new FormData();
       formData.append("name", name);
       formData.append("description", description);
-      // You can send tags as a comma-separated string (or use multiple fields)
+      // Send tags as a comma-separated string
       formData.append("tags", selectedTags.map((t) => t.toLowerCase()).join(","));
       formData.append("is_global", isGlobal ? "true" : "false");
-  
+
       // Append the PDF file only if it exists
       if (pdfFile) {
         formData.append("pdf", pdfFile);
       }
-  
+
+      // Append the video file only if it exists
+      if (videoFile) {
+        formData.append("video", videoFile);
+      }
+
       // Send the form data to your backend
       const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/exercise`, {
         method: "POST",
-        // Let the browser set the correct multipart boundary. (Don't set Content-Type manually.)
+        // Let the browser set the correct multipart boundary.
         headers: {
-          "Authorization": `Bearer ${Cookies.get("peakspeak-token")}`,
+          Authorization: `Bearer ${Cookies.get("peakspeak-token")}`,
         },
         body: formData,
       });
-  
+
       if (!res.ok) {
         const errText = await res.text();
         throw new Error(`CreateExercise failed: ${errText}`);
       }
-  
+
       // Handle successful creation (e.g., update UI, close modal)
       if (onExerciseCreated) onExerciseCreated();
       onClose();
@@ -102,9 +112,8 @@ export default function CreateExerciseWizardModal({
       alert(`Error creating exercise: ${err}`);
     }
   }
-  
 
-  // Handle PDF
+  // Handle PDF file change
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (file && file.type === "application/pdf") {
@@ -114,6 +123,23 @@ export default function CreateExerciseWizardModal({
       setPdfFile(null);
       setPdfUrl(null);
       alert("Please select a valid PDF file.");
+    }
+  }
+
+  function handleVideoChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    const maxSizeInBytes = 32 * 1024 * 1024;
+    if (file) {
+      if (!file.type.startsWith("video/")) {
+        alert("Please select a valid video file.");
+        return;
+      }
+      if (file.size > maxSizeInBytes) {
+        alert("The selected video is too large. Please select a file under 32MB.");
+        return;
+      }
+      setVideoFile(file);
+      setVideoUrl(URL.createObjectURL(file)); // For preview
     }
   }
 
@@ -198,41 +224,73 @@ export default function CreateExerciseWizardModal({
           </div>
         )}
 
-        {/* STEP 2: PDF Upload/Preview */}
+        {/* STEP 2: Upload Files */}
         {currentStep === 2 && (
-          <div>
-            <label className="block mb-1 font-semibold">Upload PDF (optional)</label>
-            <div className="flex items-center">
-              <input type="file" accept="application/pdf" onChange={handleFileChange} />
-              {pdfFile && (
-              <button
-                onClick={() => {
-                setPdfFile(null);
-                setPdfUrl(null);
-                }}
-                className="ml-2 text-red-600 font-bold"
-              >
-                x
-              </button>
-              )}
-            </div>
-            {pdfUrl && (
-              <div className="mt-2 border p-2 rounded max-h-64 overflow-auto">
-              <iframe
-                src={pdfUrl}
-                title="PDF Preview"
-                style={{ width: "100%", height: "400px" }}
-              />
+          <div className="space-y-4">
+            {/* PDF Upload */}
+            <div>
+              <label className="block mb-1 font-semibold">Upload PDF (optional)</label>
+              <div className="flex items-center">
+                <input type="file" accept="application/pdf" onChange={handleFileChange} />
+                {pdfFile && (
+                  <button
+                    onClick={() => {
+                      setPdfFile(null);
+                      setPdfUrl(null);
+                    }}
+                    className="ml-2 text-red-600 font-bold"
+                  >
+                    x
+                  </button>
+                )}
               </div>
-            )}
-            
-            <p className="text-sm text-gray-500 mt-2">
-              You can skip uploading a PDF if you prefer. This is optional.
-            </p>
+              {pdfUrl && (
+                <div className="mt-2 border p-2 rounded max-h-64 overflow-auto">
+                  <iframe
+                    src={pdfUrl}
+                    title="PDF Preview"
+                    style={{ width: "100%", height: "400px" }}
+                  />
+                </div>
+              )}
+              <p className="text-sm text-gray-500 mt-2">
+                You can skip uploading a PDF if you prefer. This is optional.
+              </p>
+            </div>
+
+            {/* Video Upload */}
+            <div>
+              <label className="block mb-1 font-semibold">Upload Video Instructions (optional)</label>
+              <div className="flex items-center">
+                <input type="file" accept="video/*" onChange={handleVideoChange} />
+                {videoFile && (
+                  <button
+                    onClick={() => {
+                      setVideoFile(null);
+                      setVideoUrl(null);
+                    }}
+                    className="ml-2 text-red-600 font-bold"
+                  >
+                    x
+                  </button>
+                )}
+              </div>
+              {videoUrl && (
+                <div className="mt-2 border p-2 rounded">
+                  <video controls width="100%">
+                    <source src={videoUrl} type={videoFile?.type} />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              )}
+              <p className="text-sm text-gray-500 mt-2">
+                Optionally upload a video with instructions.
+              </p>
+            </div>
           </div>
         )}
 
-        {/* STEP 3: Confirm (Optional) */}
+        {/* STEP 3: Confirm */}
         {currentStep === 3 && (
           <div className="space-y-4">
             <p className="font-semibold">Review Your Entries:</p>
@@ -257,6 +315,10 @@ export default function CreateExerciseWizardModal({
                 <strong>PDF: </strong>
                 {pdfFile ? pdfFile.name : "No PDF uploaded"}
               </li>
+              <li>
+                <strong>Video: </strong>
+                {videoFile ? videoFile.name : "No video uploaded"}
+              </li>
             </ul>
             <p>Everything look good? Click &quot;Create&quot; below.</p>
           </div>
@@ -274,7 +336,7 @@ export default function CreateExerciseWizardModal({
             </button>
           )}
 
-          {/* "Next" shows if not on last step (in this example step 3 is last) */}
+          {/* "Next" shows if not on last step */}
           {currentStep < 3 && (
             <button
               onClick={goNext}

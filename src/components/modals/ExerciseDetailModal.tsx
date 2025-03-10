@@ -1,4 +1,3 @@
-// src/components/ExerciseDetailModal.tsx
 import React, { useState, useCallback } from 'react';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { deleteExercise } from "@/services/ExerciseService";
@@ -15,7 +14,7 @@ const options = {
 };
 
 const resizeObserverOptions = {};
-const maxWidth = 800;
+const maxWidth = 500;
 
 interface ExerciseDetailModalProps {
   exercise: {
@@ -24,6 +23,7 @@ interface ExerciseDetailModalProps {
     description: string;
     tags: string[];
     pdf_url?: string;
+    video_url?: string;
   } | null;
   isOpen: boolean;
   onClose: () => void;
@@ -40,6 +40,9 @@ export default function ExerciseDetailModal({
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [containerRef, setContainerRef] = useState<HTMLElement | null>(null);
   const [containerWidth, setContainerWidth] = useState<number>(maxWidth);
+  // New state for toggling previews
+  const [showPDFPreview, setShowPDFPreview] = useState<boolean>(false);
+  const [showVideoPreview, setShowVideoPreview] = useState<boolean>(false);
 
   const onResize = useCallback((entries: ResizeObserverEntry[]) => {
     const [entry] = entries;
@@ -120,51 +123,110 @@ export default function ExerciseDetailModal({
           </div>
         </div>
 
-        {/* PDF Viewer Section using react-pdf with page navigation */}
+        {/* PDF Viewer Section with Toggle */}
         {exercise.pdf_url ? (
           <div className="mt-4">
             <h3 className="font-semibold mb-2">PDF Preview:</h3>
-            <div ref={setContainerRef} className="w-full">
-              <Document
-                file={exercise.pdf_url}
-                onLoadSuccess={onDocumentLoadSuccess}
-                options={options}
-                loading={<p>Loading PDF...</p>}
-                error={<p>Failed to load PDF.</p>}
+            {!showPDFPreview ? (
+              <button
+                onClick={() => setShowPDFPreview(true)}
+                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
               >
-                <Page
-                  pageNumber={currentPage}
-                  width={containerWidth ? Math.min(containerWidth, maxWidth) : maxWidth}
-                />
-              </Document>
-              {numPages > 0 && (
-                <div className="flex justify-between items-center mt-2">
-                  <button
-                    onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                    disabled={currentPage <= 1}
-                    className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+                View PDF
+              </button>
+            ) : (
+              <div>
+                <div
+                  ref={setContainerRef}
+                  className="w-full"
+                  style={{ maxHeight: "50vh", overflowY: "auto" }}  // <-- restricts height
+                >
+                  <Document
+                    file={exercise.pdf_url}
+                    onLoadSuccess={onDocumentLoadSuccess}
+                    options={options}
+                    loading={<p>Loading PDF...</p>}
+                    error={<p>Failed to load PDF.</p>}
                   >
-                    Previous
-                  </button>
-                  <p>
-                    Page {currentPage} of {numPages}
-                  </p>
-                  <button
-                    onClick={() => setCurrentPage(prev => Math.min(prev + 1, numPages))}
-                    disabled={currentPage >= numPages}
-                    className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
-                  >
-                    Next
-                  </button>
+                    <Page
+                      pageNumber={currentPage}
+                      width={containerWidth ? Math.min(containerWidth, maxWidth) : maxWidth}
+                    />
+                  </Document>
+                  {numPages > 0 && (
+                    <div className="flex justify-between items-center mt-2">
+                      <button
+                        onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                        disabled={currentPage <= 1}
+                        className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+                      >
+                        Previous
+                      </button>
+                      <p>
+                        Page {currentPage} of {numPages}
+                      </p>
+                      <button
+                        onClick={() => setCurrentPage(prev => Math.min(prev + 1, numPages))}
+                        disabled={currentPage >= numPages}
+                        className="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
+                      >
+                        Next
+                      </button>
+                    </div>
+                  )}
                 </div>
-              )}
-            </div>
+                <button
+                  onClick={() => setShowPDFPreview(false)}
+                  className="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                >
+                  Hide PDF
+                </button>
+              </div>
+            )}
           </div>
         ) : (
-          <div className="mt-4">
-            <span className="italic text-sm">No PDF available</span>
-          </div>
+          null
         )}
+
+
+        {/* Video Viewer Section with Toggle */}
+        {exercise.video_url ? (
+          <div className="mt-4">
+            <h3 className="font-semibold mb-2">Video Preview:</h3>
+            {!showVideoPreview ? (
+              <button
+                onClick={() => setShowVideoPreview(true)}
+                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+              >
+                View Video
+              </button>
+            ) : (
+              <div>
+                <div
+                  className="w-full"
+                  style={{ maxHeight: "70vh", overflowY: "auto" }}  // <-- restricts height
+                >
+                  <video
+                    src={exercise.video_url}
+                    controls
+                    className="w-full"
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+                <button
+                  onClick={() => setShowVideoPreview(false)}
+                  className="mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                >
+                  Hide Video
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          null
+        )}
+
 
         <div className="mt-4 flex justify-end gap-2">
           <button
