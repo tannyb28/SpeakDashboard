@@ -20,7 +20,7 @@ export default function CreateExerciseWizardModal({
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [selectedTags, setSelectedTags] = useState<ExerciseTag[]>([]);
-  const [isGlobal, setIsGlobal] = useState(true);
+  const [isGlobal, setIsGlobal] = useState(false);
 
   // PDF fields
   const [pdfFile, setPdfFile] = useState<File | null>(null);
@@ -61,7 +61,7 @@ export default function CreateExerciseWizardModal({
     setName("");
     setDescription("");
     setSelectedTags([]);
-    setIsGlobal(true);
+    setIsGlobal(false);
     setPdfFile(null);
     setPdfUrl(null);
     setVideoFile(null);
